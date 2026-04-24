@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>5564官方记录</title>
+<style>
+:root {
+  --bg:#f6f1e8; --paper:#fffaf1; --ink:#231f20; --muted:#786f66; --line:#ded2c1;
+  --accent:#ef7d57; --accent2:#7b9e89; --accent3:#2f4858; --card:#fffdf8; --shadow:0 18px 45px rgba(47,72,88,.12);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:
+ radial-gradient(circle at 10% 10%, rgba(239,125,87,.18), transparent 28%),
+ radial-gradient(circle at 85% 5%, rgba(123,158,137,.20), transparent 25%),
+ linear-gradient(180deg,#f8f0e5,#f3eadf 50%,#f7f1e9);
+ color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;}
+body.dark{--bg:#11151a;--paper:#171c22;--ink:#f5efe7;--muted:#b9afa5;--line:#333942;--card:#1d232b;--shadow:0 18px 45px rgba(0,0,0,.35);background:linear-gradient(180deg,#0d1117,#15171d)}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.app{min-height:100vh}
+.hero{position:relative;padding:34px clamp(18px,4vw,56px) 22px;overflow:hidden}
+.hero::after{content:"5564";position:absolute;right:-30px;top:-58px;font-size:180px;font-weight:900;letter-spacing:-12px;color:rgba(239,125,87,.11);pointer-events:none}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;max-width:1200px;margin:0 auto 26px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.5px}
+.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--accent),#f6c46c);display:grid;place-items:center;color:white;box-shadow:var(--shadow)}
+.nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+.nav button,.ghost{border:1px solid var(--line);background:rgba(255,255,255,.55);color:var(--ink);padding:10px 14px;border-radius:999px;cursor:pointer;transition:.18s;backdrop-filter:blur(8px)}
+body.dark .nav button, body.dark .ghost{background:rgba(255,255,255,.06)}
+.nav button.active,.nav button:hover,.ghost:hover{background:var(--ink);color:var(--paper);transform:translateY(-1px)}
+.heroGrid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:stretch}
+.titleCard,.sideCard,.card{background:rgba(255,250,241,.78);border:1px solid rgba(222,210,193,.75);border-radius:30px;box-shadow:var(--shadow);backdrop-filter:blur(16px)}
+body.dark .titleCard, body.dark .sideCard, body.dark .card{background:rgba(29,35,43,.78);border-color:#303640}
+.titleCard{padding:34px}
+.kicker{display:inline-flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:rgba(255,255,255,.32)}
+h1{font-size:clamp(42px,7vw,86px);line-height:.94;margin:18px 0 18px;letter-spacing:-3px}
+.lead{font-size:clamp(16px,2vw,20px);line-height:1.8;color:var(--muted);max-width:720px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.primary{border:0;background:linear-gradient(135deg,var(--accent),#f4bd62);color:white;padding:13px 18px;border-radius:16px;cursor:pointer;box-shadow:0 12px 28px rgba(239,125,87,.24);font-weight:800}
+.primary:hover{transform:translateY(-1px)}
+.sideCard{padding:22px;display:grid;gap:14px}
+.statGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.stat{padding:16px;border-radius:22px;background:rgba(255,255,255,.45);border:1px solid var(--line)}
+body.dark .stat{background:rgba(255,255,255,.05)}
+.stat b{display:block;font-size:28px;line-height:1;margin-bottom:6px;color:var(--accent3)}
+body.dark .stat b{color:#f5c06f}
+.stat span{font-size:12px;color:var(--muted)}
+main{max-width:1200px;margin:0 auto;padding:14px clamp(18px,4vw,56px) 64px}
+.page{display:none;animation:fade .22s ease}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.sectionHead{display:flex;align-items:end;justify-content:space-between;gap:14px;margin:28px 0 16px}
+.sectionHead h2{margin:0;font-size:28px;letter-spacing:-.5px}
+.sectionHead p{margin:6px 0 0;color:var(--muted);line-height:1.6}
+.grid{display:grid;gap:16px}
+.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{padding:22px}
+.memberCard{cursor:pointer;transition:.18s;position:relative;overflow:hidden}
+.memberCard:hover{transform:translateY(-4px)}
+.memberCard::after{content:"";position:absolute;right:-50px;bottom:-60px;width:140px;height:140px;border-radius:50%;background:rgba(239,125,87,.12)}
+.avatar{width:56px;height:56px;border-radius:20px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent3),var(--accent2));color:#fff;font-weight:900;margin-bottom:14px}
+.memberCard h3{margin:0 0 5px;font-size:20px}
+.role{color:var(--accent);font-weight:800;font-size:13px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}
+.tag{font-size:12px;padding:6px 9px;border-radius:999px;background:rgba(123,158,137,.14);color:var(--accent3);border:1px solid rgba(123,158,137,.22)}
+body.dark .tag{color:#dce9df}
+.miniStats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.miniStats div{background:rgba(255,255,255,.45);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center}
+body.dark .miniStats div{background:rgba(255,255,255,.05)}
+.miniStats b{display:block;font-size:16px}
+.miniStats span{font-size:11px;color:var(--muted)}
+.barRow{display:grid;grid-template-columns:120px 1fr 70px;gap:10px;align-items:center;margin:10px 0}
+.barTrack{height:12px;border-radius:999px;background:rgba(47,72,88,.1);overflow:hidden}
+.barFill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),#f4bd62)}
+.timeline{position:relative;padding-left:18px}
+.timeline::before{content:"";position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--line)}
+.event{position:relative;margin:0 0 14px;padding:18px 18px 18px 22px;border-radius:22px;background:var(--card);border:1px solid var(--line);box-shadow:0 8px 24px rgba(47,72,88,.06)}
+.event::before{content:"";position:absolute;left:-15px;top:24px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:3px solid var(--paper)}
+.eventTop{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.event h3{margin:4px 0 8px}
+.event p{color:var(--muted);line-height:1.7;margin:0}
+.type{font-size:12px;padding:6px 10px;border-radius:999px;background:rgba(239,125,87,.12);color:var(--accent);font-weight:800}
+.filterBar{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 16px}
+.filterBar button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:9px 12px;cursor:pointer;color:var(--ink)}
+.filterBar button.active{background:var(--accent3);color:white}
+.quoteGrid{columns:2 320px;column-gap:16px}
+.quote{break-inside:avoid;margin:0 0 16px;padding:20px;border-radius:24px;background:var(--card);border:1px solid var(--line);box-shadow:0 8px 24px rgba(47,72,88,.06)}
+.quote p{font-size:20px;line-height:1.6;margin:0 0 12px}
+.quote small{color:var(--muted)}
+.search{width:min(100%,460px);border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;padding:12px 14px;outline:none}
+.modalMask{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;padding:20px;z-index:30}
+.modalMask.show{display:flex}
+.modal{max-width:820px;width:100%;max-height:88vh;overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:30px;box-shadow:0 30px 80px rgba(0,0,0,.28);padding:24px}
+.modalHead{display:flex;justify-content:space-between;gap:12px;align-items:start}
+.close{border:0;background:var(--ink);color:var(--paper);border-radius:12px;padding:9px 12px;cursor:pointer}
+.profileBlock{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.profileBlock .card{box-shadow:none}
+.footerNote{margin-top:28px;color:var(--muted);font-size:13px;line-height:1.7;text-align:center}
+.pillNote{display:inline-flex;gap:8px;align-items:center;padding:10px 12px;border-radius:999px;background:rgba(47,72,88,.08);color:var(--muted);font-size:13px}
+@media (max-width:850px){
+ .heroGrid,.grid.two,.grid.three,.profileBlock{grid-template-columns:1fr}
+ .topbar{align-items:flex-start;flex-direction:column}
+ .nav{justify-content:flex-start}
+ .barRow{grid-template-columns:88px 1fr 54px}
+ h1{letter-spacing:-1px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="hero">
+    <div class="topbar">
+      <div class="brand"><div class="logo">🌧️</div><span>5564 官方记录</span></div>
+      <nav class="nav" id="nav"></nav>
+    </div>
+    <div class="heroGrid">
+      <section class="titleCard">
+        <div class="kicker">📼 由群聊记录生成 · 已自动脱敏</div>
+        <h1>5564<br>官方记录</h1>
+        <p class="lead">一份把 33116 条聊天记录整理成的互动网页：成员画像、发言性格、年度大事件、关键词和数据仪表盘都在这里。它不是审判书，是本群的荒诞史、校园史和表情包史。</p>
+        <div class="actions">
+          <button class="primary" onclick="go('members')">查看成员画像</button>
+          <button class="ghost" onclick="go('events')">进入大事件年表</button>
+          <button class="ghost" onclick="document.body.classList.toggle('dark')">切换夜间模式</button>
+        </div>
+      </section>
+      <aside class="sideCard" id="heroStats"></aside>
+    </div>
+  </header>
+  <main>
+    <section class="page active" id="page-home"></section>
+    <section class="page" id="page-members"></section>
+    <section class="page" id="page-events"></section>
+    <section class="page" id="page-quotes"></section>
+    <section class="page" id="page-data"></section>
+    <p class="footerNote">说明：本网页根据上传的聊天导出表生成。涉及证件号、隐私号码等敏感字段已在网页内容中避开，不作为展示素材。</p>
+  </main>
+</div>
+<div class="modalMask" id="modalMask" onclick="if(event.target.id==='modalMask') closeModal()">
+  <div class="modal" id="modal"></div>
+</div>
+<script>
+const DATA = {"members": [{"name": "Carleos", "role": "控场吐槽王 / 群聊发动机", "total": 10633, "percent": 32.4, "texts": 7882, "avgLen": 9.1, "quotes": 73, "emojis": 1381, "media": 1144, "topHour": 16, "tags": ["高频输出", "课堂雷达", "吃饭参谋", "战局召集"], "personality": "发言节奏快，擅长用短句把场面推起来。很多时候像群里的实时弹幕兼指挥台：点名、吃饭、战局、吐槽都能接住。", "portrait": "像一台永远在线的群聊中控台：嘴上嫌吵，手上还在推进下一轮话题。外表是补刀，内核是维持热闹。", "signature": ["你们吵到我睡觉了", "我们要撤退了", "三饭吃啥", "等下看看"]}, {"name": "Tsuki", "role": "情绪剧场主角 / 金句制造机", "total": 8134, "percent": 24.8, "texts": 5960, "avgLen": 8.3, "quotes": 105, "emojis": 1237, "media": 782, "topHour": 18, "tags": ["戏剧化表达", "感性爆发", "反讽高手", "表情包源头"], "personality": "擅长把日常小事讲成连续剧，时而严肃，时而破防，常用夸张语气制造名场面。", "portrait": "群里的情绪灯牌，一句话能把普通课堂变成宫廷戏、战场或青春伤痛文学现场。", "signature": ["我现在真的没有时间陪你闹了。", "能不能不要一天天不务正业", "让我看看你之前有没有发自拍", "勤奋的yy已经起床三个多小时了"]}, {"name": "Onion_YC", "role": "战术召集人 / 引用消息大师", "total": 6469, "percent": 19.7, "texts": 4712, "avgLen": 10.8, "quotes": 278, "emojis": 544, "media": 930, "topHour": 16, "tags": ["开黑召集", "引用补刀", "行动派", "链接搬运"], "personality": "发言常带任务感：集合、进队、打不打、到了没。引用消息很多，像负责把混乱话题重新串起来的人。", "portrait": "群聊里的行动按钮，话不一定最长，但常常负责让事情真的发生。", "signature": ["鸡时已到", "今晚打不打麻将", "点到我了吗", "世态炎凉"]}, {"name": "Elkuai.🍒ིྀ", "role": "秩序维护员 / 温柔补刀位", "total": 4064, "percent": 12.4, "texts": 3207, "avgLen": 9.2, "quotes": 127, "emojis": 642, "media": 176, "topHour": 23, "tags": ["理性求证", "劝架担当", "夜间活跃", "冷静吐槽"], "personality": "经常在混乱里提醒大家别胡闹，也会突然加入玩梗。发言有一种“我先稳住局面，再顺手补一刀”的气质。", "portrait": "群里的刹车片兼安全气囊，必要时给失控话题降速，但也会跟着漂移。", "signature": ["不要伤及无辜", "不是你们打闹的地方", "按掉闹钟又睡着了", "他要死吧"]}, {"name": "ㅤㅤ", "role": "空白名观察员 / 冷面旁白", "total": 2652, "percent": 8.1, "texts": 1694, "avgLen": 13.4, "quotes": 104, "emojis": 489, "media": 388, "topHour": 11, "tags": ["精准补刀", "作业警报", "截图语境", "低调狠话"], "personality": "名字很安静，发言不一定安静。常用问号、引用和短句切入，像在旁边突然亮起的警示灯。", "portrait": "群里的隐藏摄像头，看似不在场，其实总能抓到关键瞬间。", "signature": ["？", "你再敢做我的丑ai你就完了", "0000-2359禁止吃鸡", "消失的体育"]}, {"name": "Teracinde", "role": "身份梗开山者 / 开场剧情 NPC", "total": 419, "percent": 1.3, "texts": 367, "avgLen": 60.0, "quotes": 1, "emojis": 37, "media": 13, "topHour": 19, "tags": ["自我介绍", "人格切换", "中英混搭", "长文本"], "personality": "早期贡献了大量身份梗与自我介绍，发言平均长度最高，常出现一本正经与胡闹并存的效果。", "portrait": "像群聊第一章的剧情触发器，用“我是谁”开启了后续一整年的错位喜剧。", "signature": ["大家好", "我是温真烨", "其实我是方源", "hello i am karl marx"]}, {"name": "🌧️5564[心碎]", "role": "无声档案馆 / 群名本体", "total": 364, "percent": 1.1, "texts": 0, "avgLen": 0.0, "quotes": 0, "emojis": 0, "media": 364, "topHour": 16, "tags": ["视频记录", "系统存在", "背景板", "档案感"], "personality": "几乎不以文字说话，更多像系统或影像记录者。它不是某个人的嘴，而是整个群聊的外壳。", "portrait": "一块会呼吸的群聊招牌：沉默，但把一年记了下来。", "signature": ["视频消息 × 364", "群聊容器", "官方记录背景板", "无声但存在感强"]}, {"name": "Demian", "role": "低频突击兵 / 现实播报员", "total": 96, "percent": 0.3, "texts": 48, "avgLen": 6.9, "quotes": 1, "emojis": 42, "media": 4, "topHour": 18, "tags": ["短句突袭", "交通路况", "现实观察", "兵王梗"], "personality": "发言量不高，但出现时往往带现实信息或直接吐槽，像偶尔上线的外勤情报员。", "portrait": "群里的低频但有效信号，平时潜伏，一开口就是现场情况。", "signature": ["是不是又着火了", "我同学说广州也震", "天天塞车", "正直的兵王不会请假的"]}], "events": [{"date": "2025-04-04", "title": "建群与身份宇宙启动", "type": "开端", "summary": "聊天记录从入群、自我介绍开始，“我是温真烨 / 其实我是方源”一类身份错位梗成为早期主线。", "tags": ["入群", "身份梗", "第一章"]}, {"date": "2025-04-23", "title": "刷屏、红包与麻将宇宙成型", "type": "爆发", "summary": "当天消息量达到 713 条，围绕真假身份、红包、课堂吐槽、麻将战局和连续补刀形成第一波高密度名场面。", "tags": ["713条", "麻将", "刷屏"]}, {"date": "2025-04-29", "title": "体能、上课与战局三线并行", "type": "校园", "summary": "从“考体能”到“什么时候考试”，再到线上战局召集，群聊进入典型的校园生存模式：学习、摸鱼、开战同步推进。", "tags": ["体能", "考试", "开战"]}, {"date": "2025-04-30", "title": "考勤签到大战", "type": "危机", "summary": "围绕点名、签到、缺勤和老师操作展开大型即时协作，成员们一边互相提醒，一边互相拉下水。", "tags": ["签到", "点名", "缺勤"]}, {"date": "2025-05-07", "title": "表情包工厂上线", "type": "名场面", "summary": "梦、照片、表情包、课堂和麻将混在一起，群聊开始进入“素材生产—二次传播—再次迫害”的循环。", "tags": ["表情包", "梦", "素材"]}, {"date": "2025-05-30", "title": "感性杨惠帝与朋友圈审阅日", "type": "巅峰", "summary": "全年单日最高消息量 939 条。感性发言、朋友圈审阅、旅行动态、十年后的自己等话题组成一次大型群体围观。", "tags": ["939条", "朋友圈", "感性"]}, {"date": "2025-06-23", "title": "论文格式与师门危机", "type": "学术", "summary": "围绕论文反馈、格式、分数与反省展开，群聊短暂变成“论文互助与互害委员会”。", "tags": ["论文", "格式", "分数"]}, {"date": "2025-09-28", "title": "补课通知与签到悬疑", "type": "校园", "summary": "台风补课、腾讯会议名字、签到疑云、照片互传等多线并发，形成新学期后的高密度校园剧情。", "tags": ["补课", "签到", "照片"]}, {"date": "2025-10-11", "title": "6E402 气味危机", "type": "灾难", "summary": "教室异味引发群体吐槽，从“要中毒了”到“教学事故”，把普通上课日升级成灾难片现场。", "tags": ["教室", "异味", "灾难片"]}, {"date": "2025-10-22", "title": "海底捞折扣与宿舍厕所副本", "type": "生活", "summary": "吃饭折扣、下雨、宿舍厕所维修、电影频道并行，体现本群最稳定的主题：吃、课、宿舍与荒诞现实。", "tags": ["海底捞", "宿舍", "厕所"]}, {"date": "2025-10-23", "title": "惠州启程与剧本讨论", "type": "远征", "summary": "从剧本、职场设定到惠州出发、机场吐槽，群聊切换成半旅行半拍摄筹备的公路片。", "tags": ["惠州", "剧本", "出发"]}, {"date": "2025-12-02", "title": "抢票行动与文档协作", "type": "任务", "summary": "抢票、文档、倒计时和多人协作交织；记录中出现过证件号等敏感信息，网页已全部脱敏不展示。", "tags": ["抢票", "协作", "已脱敏"]}, {"date": "2026-04-24", "title": "番禺站与代课代驾梗", "type": "近况", "summary": "最新记录停在 2026-04-24，成员围绕到站、车程、油漆味和代驾梗继续保持日常荒诞。", "tags": ["最新", "到站", "代驾梗"]}], "quotes": [{"speaker": "Carleos", "text": "你们吵到我睡觉了", "label": "控场式抱怨"}, {"speaker": "Tsuki", "text": "我现在真的没有时间陪你闹了。", "label": "戏剧化拒绝"}, {"speaker": "Onion_YC", "text": "鸡时已到", "label": "战局召集"}, {"speaker": "Elkuai.🍒ིྀ", "text": "不要伤及无辜", "label": "秩序维护"}, {"speaker": "ㅤㅤ", "text": "0000-2359禁止吃鸡", "label": "冷面禁令"}, {"speaker": "Teracinde", "text": "其实我是方源", "label": "身份宇宙"}, {"speaker": "Demian", "text": "是不是又着火了", "label": "低频突击"}, {"speaker": "群记录", "text": "本页面已自动隐藏证件号等敏感字段", "label": "官方脱敏"}], "summary": {"total": 33116, "nonSystem": 32831, "start": "2025-04-04", "end": "2026-04-24", "days": 337, "text": 23181, "image": 2755, "emoji": 4372, "voice": 600, "video": 365, "quote": 689}, "monthly": [{"month": "2025-04", "count": 2632}, {"month": "2025-05", "count": 5678}, {"month": "2025-06", "count": 3155}, {"month": "2025-07", "count": 1668}, {"month": "2025-08", "count": 1368}, {"month": "2025-09", "count": 3502}, {"month": "2025-10", "count": 4742}, {"month": "2025-11", "count": 3219}, {"month": "2025-12", "count": 2950}, {"month": "2026-01", "count": 631}, {"month": "2026-02", "count": 356}, {"month": "2026-03", "count": 1544}, {"month": "2026-04", "count": 1386}], "topDays": [{"date": "2025-05-30", "count": 939}, {"date": "2025-04-23", "count": 713}, {"date": "2025-05-07", "count": 532}, {"date": "2025-04-30", "count": 469}, {"date": "2025-04-29", "count": 423}, {"date": "2025-09-30", "count": 416}, {"date": "2025-10-11", "count": 397}, {"date": "2025-05-14", "count": 387}, {"date": "2025-10-23", "count": 380}, {"date": "2025-09-28", "count": 377}], "keywords": [{"word": "表情包", "count": 4390}, {"word": "菠萝", "count": 898}, {"word": "梁杰华", "count": 265}, {"word": "老师", "count": 201}, {"word": "红包", "count": 153}, {"word": "同学", "count": 140}, {"word": "虎门", "count": 130}, {"word": "温家烨", "count": 112}, {"word": "麻将", "count": 105}, {"word": "汕头", "count": 82}, {"word": "签到", "count": 57}, {"word": "吃鸡", "count": 53}, {"word": "梦", "count": 49}, {"word": "🀄", "count": 48}, {"word": "论文", "count": 44}, {"word": "朋友圈", "count": 43}, {"word": "王芹", "count": 40}, {"word": "方源", "count": 35}]};
+const pages = [
+  ['home','首页'],
+  ['members','成员画像'],
+  ['events','本群大事件'],
+  ['quotes','名场面语录'],
+  ['data','数据仪表盘']
+];
+function fmt(n){return Number(n).toLocaleString('zh-CN')}
+function go(id){location.hash=id; renderRoute();}
+function initials(name){return name.includes('5564')?'群':(name.trim()[0] || '空')}
+function renderNav(){
+  const nav=document.getElementById('nav');
+  nav.innerHTML=pages.map(([id,label])=>`<button data-page="${id}" onclick="go('${id}')">${label}</button>`).join('');
+}
+function renderRoute(){
+  const id=(location.hash||'#home').replace('#','');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const page=document.getElementById('page-'+id) || document.getElementById('page-home');
+  page.classList.add('active');
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+}
+function renderHeroStats(){
+  const s=DATA.summary;
+  document.getElementById('heroStats').innerHTML = `
+  <div class="statGrid">
+    <div class="stat"><b>${fmt(s.total)}</b><span>聊天记录总数</span></div>
+    <div class="stat"><b>${s.days}</b><span>覆盖活跃日期</span></div>
+    <div class="stat"><b>${s.start}</b><span>记录开始</span></div>
+    <div class="stat"><b>${s.end}</b><span>记录截止</span></div>
+  </div>
+  <div class="pillNote">🎭 主旋律：课堂求生、吃饭决策、表情包生产、战局召集、互相迫害</div>
+  `;
+}
+function bar(label,value,max,tail=''){return `<div class="barRow"><strong>${label}</strong><div class="barTrack"><div class="barFill" style="width:${Math.max(2,value/max*100)}%"></div></div><span>${fmt(value)}${tail}</span></div>`}
+function renderHome(){
+  const maxMember=Math.max(...DATA.members.map(m=>m.total));
+  const maxKw=Math.max(...DATA.keywords.map(k=>k.count));
+  document.getElementById('page-home').innerHTML = `
+  <div class="sectionHead"><div><h2>档案总览</h2><p>从聊天记录里提炼出的群体画像：谁最活跃、什么梗最常出现、哪几天最爆炸。</p></div></div>
+  <div class="grid two">
+    <div class="card"><h3>成员活跃度 TOP</h3>${DATA.members.slice(0,6).map(m=>bar(m.name,m.total,maxMember,` · ${m.percent}%`)).join('')}</div>
+    <div class="card"><h3>关键词热度</h3>${DATA.keywords.slice(0,10).map(k=>bar(k.word,k.count,maxKw)).join('')}</div>
+  </div>
+  <div class="sectionHead"><div><h2>本群一句话介绍</h2><p>这是一个可以把“上课、吃饭、签到、抢票、照片、剧本、厕所、麻将、吃鸡”全部聊成连续剧的群。</p></div></div>
+  <div class="grid three">
+    <div class="card"><h3>📌 群聊气质</h3><p class="lead">高密度短句、快速接梗、互相拆台，但遇到任务会突然协作。</p></div>
+    <div class="card"><h3>🔥 年度高峰</h3><p class="lead">2025-05-30 是全年最高峰，非系统消息 939 条。</p></div>
+    <div class="card"><h3>🛡️ 隐私处理</h3><p class="lead">网页仅展示风格与统计，不展示证件号等敏感字段。</p></div>
+  </div>`;
+}
+function renderMembers(filter=''){
+ const list=DATA.members.filter(m=>!filter || m.name.toLowerCase().includes(filter.toLowerCase()) || m.role.includes(filter) || m.tags.join('').includes(filter));
+ document.getElementById('page-members').innerHTML = `
+ <div class="sectionHead"><div><h2>成员个人画像</h2><p>点击卡片可查看子页面式详情：发言性格、群内定位、数据和代表语气。</p></div><input class="search" placeholder="搜索成员 / 标签 / 角色" oninput="renderMembers(this.value)"></div>
+ <div class="grid three">${list.map((m,i)=>`
+  <article class="card memberCard" onclick="openMember(${DATA.members.indexOf(m)})">
+    <div class="avatar">${initials(m.name)}</div>
+    <h3>${m.name}</h3><div class="role">${m.role}</div>
+    <div class="tags">${m.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+    <p style="color:var(--muted);line-height:1.7">${m.portrait}</p>
+    <div class="miniStats"><div><b>${fmt(m.total)}</b><span>发言</span></div><div><b>${m.avgLen}</b><span>均字数</span></div><div><b>${m.topHour}点</b><span>高峰</span></div></div>
+  </article>`).join('')}</div>`;
+}
+function openMember(i){
+ const m=DATA.members[i];
+ document.getElementById('modal').innerHTML = `
+ <div class="modalHead"><div><div class="avatar">${initials(m.name)}</div><h2>${m.name}</h2><div class="role">${m.role}</div></div><button class="close" onclick="closeModal()">关闭</button></div>
+ <div class="tags">${m.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+ <div class="profileBlock">
+   <div class="card"><h3>发言性格</h3><p style="line-height:1.8;color:var(--muted)">${m.personality}</p></div>
+   <div class="card"><h3>个人画像</h3><p style="line-height:1.8;color:var(--muted)">${m.portrait}</p></div>
+ </div>
+ <div class="profileBlock">
+   <div class="card"><h3>数据雷达</h3>
+    ${bar('总发言',m.total,Math.max(...DATA.members.map(x=>x.total)))}
+    ${bar('文本/引用',m.texts,Math.max(...DATA.members.map(x=>x.texts)))}
+    ${bar('表情包',m.emojis,Math.max(...DATA.members.map(x=>x.emojis)))}
+    ${bar('媒体消息',m.media,Math.max(...DATA.members.map(x=>x.media)))}
+   </div>
+   <div class="card"><h3>代表语气</h3>${m.signature.map(q=>`<div class="quote"><p>“${q}”</p></div>`).join('')}</div>
+ </div>`;
+ document.getElementById('modalMask').classList.add('show');
+}
+function closeModal(){document.getElementById('modalMask').classList.remove('show')}
+function renderEvents(type='全部'){
+ const types=['全部',...new Set(DATA.events.map(e=>e.type))];
+ const ev=DATA.events.filter(e=>type==='全部'||e.type===type);
+ document.getElementById('page-events').innerHTML = `
+ <div class="sectionHead"><div><h2>本群大事件记录</h2><p>按聊天高峰、关键词和代表性内容整理，不是完整流水账，而是“官方史记版”。</p></div></div>
+ <div class="filterBar">${types.map(t=>`<button class="${t===type?'active':''}" onclick="renderEvents('${t}')">${t}</button>`).join('')}</div>
+ <div class="timeline">${ev.map(e=>`
+  <article class="event"><div class="eventTop"><strong>${e.date}</strong><span class="type">${e.type}</span></div>
+  <h3>${e.title}</h3><p>${e.summary}</p><div class="tags">${e.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div></article>`).join('')}</div>`;
+}
+function renderQuotes(){
+ document.getElementById('page-quotes').innerHTML = `
+ <div class="sectionHead"><div><h2>名场面语录</h2><p>只保留风格化短句，避免展示隐私与敏感信息。</p></div></div>
+ <div class="quoteGrid">${DATA.quotes.map(q=>`<blockquote class="quote"><p>“${q.text}”</p><small>${q.speaker} · ${q.label}</small></blockquote>`).join('')}</div>`;
+}
+function renderData(){
+ const maxMonth=Math.max(...DATA.monthly.map(m=>m.count));
+ const maxDay=Math.max(...DATA.topDays.map(d=>d.count));
+ const s=DATA.summary;
+ document.getElementById('page-data').innerHTML = `
+ <div class="sectionHead"><div><h2>数据仪表盘</h2><p>这里是记录的量化切面：消息类型、月份走势和高峰日期。</p></div></div>
+ <div class="grid two">
+  <div class="card"><h3>消息类型</h3>
+   ${bar('文本消息',s.text,s.total)}
+   ${bar('动画表情',s.emoji,s.total)}
+   ${bar('图片消息',s.image,s.total)}
+   ${bar('引用消息',s.quote,s.total)}
+   ${bar('语音消息',s.voice,s.total)}
+   ${bar('视频消息',s.video,s.total)}
+  </div>
+  <div class="card"><h3>单日高峰 TOP 10</h3>${DATA.topDays.map(d=>bar(d.date,d.count,maxDay)).join('')}</div>
+ </div>
+ <div class="sectionHead"><div><h2>月份走势</h2><p>2025 年 5 月、10 月是两个明显高峰；2026 年初回落，3 月后重新活跃。</p></div></div>
+ <div class="card">${DATA.monthly.map(m=>bar(m.month,m.count,maxMonth)).join('')}</div>`;
+}
+renderNav();renderHeroStats();renderHome();renderMembers();renderEvents();renderQuotes();renderData();renderRoute();
+window.addEventListener('hashchange',renderRoute);
+</script>
+</body>
+</html>
